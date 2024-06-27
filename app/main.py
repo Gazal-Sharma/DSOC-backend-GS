@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, flash, request, session, url_for
 from datetime import timedelta
 import psycopg2
+import pytest
 
 
 DB_CONFIG = {
@@ -10,7 +11,7 @@ DB_CONFIG = {
     'host' : "localhost",
     'port' : "5432",
 }
-def db_connection():
+def db_connection(): 
     conn = psycopg2.connect(
         dbname=DB_CONFIG['dbname'],
         user=DB_CONFIG['user'],
@@ -18,7 +19,6 @@ def db_connection():
         host=DB_CONFIG['host'],
         port=DB_CONFIG['port']
     )
-    yield conn
     return conn
 
 def create_tables():
@@ -33,22 +33,11 @@ def create_tables():
     conn.close()
     print("Tables created succesfully")
 
-# def insert_data():
-#     conn = db_connection()
-#     if conn is None:
-#         return
-#     cur = conn.cursor()
-#     cur.execute('DROP TABLE IF EXISTS InventoryItem')
-#     insert_data = 'INSERT INTO InventoryItem(Item_SKU, Item_Name, Item_Description, Item_Price, Item_Qty) VALUES(%s, %s, %s, %s, %s)'
-#     insert_value = (1, 'screws', 'twist', 120, 100)
-#     cur.execute(insert_data, insert_value)
-#     conn.commit()
-#     cur.close()
-#     conn.close()
-
 app = Flask(__name__)
 app.secret_key = "DSOC FOR THE WIN" # for flash
 app.permanent_session_lifetime = timedelta(minutes=10)
+
+
 
 @app.route('/')
 @app.route('/home')
@@ -60,10 +49,20 @@ def home():
 def login():
     if request.method == "POST":
         session.permanent = True
-        user = request.form["nme"]
+        user = request.form["name"]
         session["user"] = user
         email = request.form["email"]
         session["email"] = email
+        contact = request.form["contact"]
+        session["contact"] = contact
+        conn = db_connection()
+        cur = conn.cursor()
+        cur.execute(
+            '''INSERT INTO Customer(c_name, c_email, c_contact) VALUES (%s, %s, %s)''',(user, email, contact)
+            )
+        conn.commit()
+        cur.close()
+        conn.close()
         flash("Login successful")
         return redirect(url_for("home"))
     else:

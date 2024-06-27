@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS InventoryItem(
     Item_SKU SERIAL PRIMARY KEY,
     Item_Name VARCHAR(100) NOT NULL,
     Item_Description TEXT,
-    Item_Price NUMERIC(10, 2) NOT NULL, 
+    Item_Price NUMERIC(10, 2) NOT NULL (Item_Price > 0), 
     Item_Qty INT NOT NULL
     );
 CREATE TABLE IF NOT EXISTS Customer(
