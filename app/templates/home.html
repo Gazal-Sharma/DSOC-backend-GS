@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head %}{% endblock%}
+
+{% block body %}
+<h4> Login to view further 😎✌️</h4>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <h1>{{ msg }}</h1>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<h2> This project is going to include::</h2>
+<h3 class = "indented"> Us building a POS backend project</h3>
+
+{% endblock %}
+

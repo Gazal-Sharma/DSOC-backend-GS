@@ -1,0 +1,27 @@
+body {
+    margin: 10; /* Resetting default margin */
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff; /* Adjusted color code for white text */
+
+    /* Background image properties */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.01)), url('imagedsoc.jpg'); 
+    background-size: cover; /* Ensures the background image covers the entire page */
+    background-position: center top; /*Centers the background image*/
+    background-repeat: no-repeat; /*Prevents the image from repeating*/
+
+
+
+    /* Change the text color for all elements */
+    * {
+    color: #000000; /* Hex color */
+    }
+
+    
+    
+}
+
+.indented {
+    margin-left: 10px; /* Adds left margin to elements with class 'indented' */
+}
+
+

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} USER {% endblock %}
+
+{% block body %}
+<h2> Hello {{ user }}</h2>
+<h3> Please fill some more details to login </h3>
+<form action = "/user" method = "POST">
+    <h2> CONTACT NO :</h2>
+    <input type = "text" name = "no"/>
+    <h2>ADDRESS : </h2>
+    <h1><input type = "text" name = "address"/></h1>
+    <input type = "submit" value = "Submit" />
+</form>
+
+{% endblock %}
