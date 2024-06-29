@@ -1,7 +1,18 @@
-from flask import Flask, render_template, redirect, flash, request, session, url_for
+from flask import Flask, render_template, redirect, flash, request, session, url_for, make_response
 from datetime import timedelta
 import psycopg2
 import pytest
+
+from flask import Flask, render_template, make_response
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    # Example of setting Content-Type for HTML response
+    response = make_response(render_template('index.html'))
+    response.headers['Content-Type'] = 'text/html'
+    return response
 # import connexion
 
 # def create():
