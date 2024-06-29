@@ -91,7 +91,4 @@ def logout():
 def about():
     return render_template("about.html")
 
-if __name__ == "__main__":
-    create_tables()
-    # insert_data()
-    app.run(host='0.0.0.0', debug = True)
+
