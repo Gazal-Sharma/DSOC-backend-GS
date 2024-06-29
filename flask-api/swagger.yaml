@@ -1,0 +1,16 @@
+# swagger: "2.0"
+# info:
+#   title: MANAGING PRODUCTS
+#   description: "API for managing products in POS"
+#   version: "1.0.0"
+# basePath: /api
+# schemes: 
+#   - http
+# paths:
+#   /products:
+#     get:
+#       summary: a list of products
+#       operation Id: 
+#       responses: 
+#         200:
+#           desciption: a list of flights

@@ -2,7 +2,13 @@ from flask import Flask, render_template, redirect, flash, request, session, url
 from datetime import timedelta
 import psycopg2
 import pytest
+# import connexion
 
+# def create():
+#     connexion_app = connexion.App(__name__, specification_dir = '../swagger/')
+#     connexion_app.add_api('swagger.yaml')
+#     api = connexion_app.app
+#     return api
 
 DB_CONFIG = {
     'dbname' : "viewhere",
