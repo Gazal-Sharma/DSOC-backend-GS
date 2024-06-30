@@ -51,7 +51,7 @@ def index():
     response.headers['Content-Type'] = 'text/html'
     return response
 
-@app.route('/')
+
 @app.route('/home')
 def home():
     flash("HELLO and WELCOME to the DSOC PROJECT!!!!")
