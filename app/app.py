@@ -44,14 +44,8 @@ app = Flask(__name__)
 app.secret_key = "DSOC FOR THE WIN" # for flash
 app.permanent_session_lifetime = timedelta(minutes=10)
 
-@app.route('/')
-def index():
-    # Example of setting Content-Type for HTML response
-    response = make_response(render_template('index.html'))
-    response.headers['Content-Type'] = 'text/html'
-    return response
 
-
+@app.route("/")
 @app.route('/home')
 def home():
     flash("HELLO and WELCOME to the DSOC PROJECT!!!!")
