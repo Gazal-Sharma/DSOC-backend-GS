@@ -1,16 +1,176 @@
-# swagger: "2.0"
-# info:
-#   title: MANAGING PRODUCTS
-#   description: "API for managing products in POS"
-#   version: "1.0.0"
-# basePath: /api
-# schemes: 
-#   - http
-# paths:
-#   /products:
-#     get:
-#       summary: a list of products
-#       operation Id: 
-#       responses: 
-#         200:
-#           desciption: a list of flights
+openapi: 3.1.0
+info:
+  title: PRODUCT MANAGEMENT API
+  description: Creating, Reading, Updating and Deleting a Product
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /create/product:
+    get:
+      summary: Display the form to create a product
+      responses:
+        '200':
+          description: Form displayed successfully
+          content:
+            text/html:
+              schema:
+                type: string
+                
+    post:
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryItem'
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItem'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /products:
+    get:
+      summary: Read all inventory items
+      responses:
+        '200':
+          description: List of inventory items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryItem'
+
+  /products/{product_id}:
+    get:
+      summary: Read an object by ID
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Inventory item details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItem'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Update details of a product
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          type: integer
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+
+    put:
+      summary: Update an inventory item by ID
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryItem'
+      responses:
+        '200':
+          description: Item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItem'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Delete an inventory item by ID
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Item deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Item deleted successfully"
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    InventoryItem:
+      type: object
+      properties:
+        Item_SKU:
+          type: integer
+          example: 1
+        Item_Name:
+          type: string
+          example: "Sample Item"
+        Item_Description:
+          type: string
+          example: "This is a sample item description."
+        Item_Price: 
+          type: number
+          format: float
+          example: 23.45
+        Item_Qty:
+          type: integer
+          example: 100
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Resource not found"

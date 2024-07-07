@@ -1,0 +1,38 @@
+{% extends 'get.html' %}
+{% block head %}{% endblock %}
+
+
+{% block body %}
+<form action="/products/{{product[0]}}" method = "post">
+    <h2>Please Enter the ID for the Product you want to find </h2>
+    <h1><input type="number" name = "product_id"/></h1>
+    <h1><input type="submit" value = "Submit"/></h1>
+</form>
+{% if product %}
+<h1 class = "move-down">ITEM - {{product[1]}} IN INVENTORY</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <td>ITEM_SKU</td>
+            <td>ITEM_NAME</td>
+            <td>ITEM_DESCRIPTION</td>
+            <td>ITEM_PRICE</td>
+            <td>ITEM_QTY</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% if product %}
+        <tr>
+            <th>{{product[0]}}</th>
+            <th>{{product[1]}}</th>
+            <th>{{product[2]}}</th>
+            <th>{{product[3]}}</th>
+            <th>{{product[4]}}</th>
+        </tr>
+        {% endif %}
+    </tbody>
+
+</table>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'get.html' %}
+{% block head %}{% endblock %}
+
+
+{% block body %}
+
+<h1 class = "move-down">ITEMS IN INVENTORY</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ITEM_SKU</th>
+            <th>ITEM_NAME</th>
+            <th>ITEM_DESCRIPTION</th>
+            <th>ITEM_PRICE</th>
+            <th>ITEM_QTY</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <th>{{product[0]}}</th>
+            <th>{{product[1]}}</th>
+            <th>{{product[2]}}</th>
+            <th>{{product[3]}}</th>
+            <th>{{product[4]}}</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+
+{% endblock %}
