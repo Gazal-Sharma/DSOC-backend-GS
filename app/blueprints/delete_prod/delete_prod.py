@@ -1,17 +1,16 @@
 from flask import Blueprint, render_template, jsonify, request
+from utils import role_required
+from flask_login import login_required, current_user
 
 
-delete_ps = Blueprint("delete_pd", __name__, template_folder = "templates")
-
-
-
-from flask import Blueprint, render_template, jsonify, request
-from app import db_connection
 
 delete_ps = Blueprint("delete_ps", __name__, template_folder="templates")
 
 @delete_ps.route('/products/delete/<int:product_id>', methods=['DELETE'])
+@login_required
+@role_required('admin')
 def delete_product(product_id):
+    from app import db, db_connection
     conn = db_connection()
     cur = conn.cursor()
     try:
@@ -28,5 +27,7 @@ def delete_product(product_id):
         conn.close()
 
 @delete_ps.route('/products/delete', methods=['GET'])
+@login_required
+@role_required('admin')
 def delete_product_page():
     return render_template('delete_product.html')

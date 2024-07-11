@@ -44,10 +44,14 @@
 #     cur.close()
 #     conn.close()
 from flask import Blueprint, render_template, jsonify, request
+from utils import role_required
+from flask_login import login_required, current_user
 
 put_pd = Blueprint("put_pd", __name__, template_folder="templates")
 
 @put_pd.route('/update/products/<int:product_id>', methods=['GET', 'POST'])
+@login_required
+@role_required('admin')
 def update_product(product_id):
     product = None
     from app import db, db_connection

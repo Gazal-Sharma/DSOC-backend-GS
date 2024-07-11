@@ -48,7 +48,7 @@
 <body>
     <div class="navbar">
         {% if request.endpoint != 'home' %}
-            <a href="{{ url_for('home') }}">HOME</a>
+            <a href="/home">HOME</a>
         {% endif %}
         <a href="/products">ALL PRODUCTS</a>
         <a href="/products/1">ONE PRODUCT</a>
@@ -60,6 +60,7 @@
         {% else %}
             <a href="/login">LOGIN</a>
         {% endif %} -->
+        <a href = "/logout">LOGOUT</a>
         <a href="/about">ABOUT</a>
     </div>
 

@@ -1,9 +1,13 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for
+from utils import role_required
+from flask_login import login_required, current_user
 
 post_pd = Blueprint("post_pd", __name__, template_folder="templates")
 
-@post_pd.route('/create/product', methods=['GET', 'POST'])
 
+@post_pd.route('/create/product', methods=['GET', 'POST'])
+@login_required
+@role_required('admin')
 def create_product():
     if request.method == "POST":
         ITEM_SKU = request.form["ITEM_SKU"]
