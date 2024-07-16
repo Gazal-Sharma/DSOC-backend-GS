@@ -1,0 +1,46 @@
+{% extends 'get.html' %}
+
+
+{% block content %}
+    {% if not product %}
+        <form action="{{ url_for('get_ps.create_product') }}" method="post">
+            <h2>Please Enter the Details of the Product you want to create</h2>
+            <h2>ITEM_SKU</h2>
+            <input type="number" name="ITEM_SKU" required><br><br>
+            <h2>ITEM_NAME</h2>
+            <input type="text" name="ITEM_NAME" required><br><br>
+            <h2>ITEM_DESCRIPTION</h2>
+            <input type="text" name="ITEM_DESCRIPTION" required><br><br>
+            <h2>ITEM_PRICE</h2>
+            <input type="number" name="ITEM_PRICE" step="0.01"  required><br><br>
+            <h2>ITEM_QTY</h2>
+            <input type="number" name="ITEM_QTY" required><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+    
+    {% if product %}
+        <h1 class="move-down">ITEM - {{ product.ITEM_NAME }} ADDED TO INVENTORY</h1>
+        <h2>Product Created Successfully</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ITEM_SKU</th>
+                    <th>ITEM_NAME</th>
+                    <th>ITEM_DESCRIPTION</th>
+                    <th>ITEM_PRICE</th>
+                    <th>ITEM_QTY</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ product.Item_SKU }}</td>
+                    <td>{{ product.Item_Name }}</td>
+                    <td>{{ product.Item_Description }}</td>
+                    <td>{{ product.Item_Price }}</td>
+                    <td>{{ product.Item_Qty }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

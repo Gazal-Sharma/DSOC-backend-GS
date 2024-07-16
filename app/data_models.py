@@ -31,6 +31,16 @@ class Staff(db.Model):
         return True  # Assuming all staff members are authenticated
     def is_anonymous(self):
         return False
+        
+    def to_dict(self):
+        return {
+            'id': self.s_id,
+            'name': self.s_name,
+            'email': self.s_email,
+            'role': self.s_role,
+            'is_approved': self.is_approved
+        }
+    
 
 class Products(db.Model):
     __tablename__ = "products"
@@ -74,7 +84,7 @@ class Transaction(db.Model):
     t_id = db.Column(db.Integer, primary_key=True)
     c_id = db.Column(db.Integer, db.ForeignKey('customer.c_id'), nullable=False)
     s_id = db.Column(db.Integer, db.ForeignKey('staff.s_id'), nullable=False)
-    # product_amount_list = db.Column(db.JSONB, nullable=False)
+    product_amount_list = db.Column(db.JSON, nullable=False)
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.Time, nullable=False)
 

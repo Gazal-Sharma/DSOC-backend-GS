@@ -52,27 +52,29 @@ def create_app():
     app.config['SECRET_KEY'] = "fe69ecb4ba26fe4973b26fb35038c70954d642cadd2a2c0f3828b5325fa27d06"
     app.config['SESSION_TYPE'] = 'filesystem'
     app.config['SESSION_PERMANENT'] = False  
-    app.permanent_session_lifetime = timedelta(minutes = 3)
+    app.permanent_session_lifetime = timedelta(minutes = 10)
 
 
     bcrypt.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
 
-    from blueprints.get_prod.get_prod import get_ps
-    from blueprints.post_prod.post_prod import post_pd
-    from blueprints.put_prod.put_prod import put_pd
-    from blueprints.delete_prod.delete_prod import delete_ps
-    from blueprints.login_staff.login import mains
-    from blueprints.staff_crud.staff_d import staff_d
+    from blueprints.products.get_prod.get_prod import get_ps
+    # from blueprints.products.post_prod.post_prod import post_pd
+    # from blueprints.products.put_prod.put_prod import put_pd
+    # from blueprints.products.delete_prod.delete_prod import delete_ps
+    from blueprints.login.login import mains
+    from blueprints.users.staff_crud.staff_d import staff_d
+    from blueprints.transaction.transaction import trs
 
     from data_models import Staff
     app.register_blueprint(get_ps)
-    app.register_blueprint(post_pd)
-    app.register_blueprint(put_pd)
-    app.register_blueprint(delete_ps)
+    # app.register_blueprint(post_pd)
+    # app.register_blueprint(put_pd)
+    # app.register_blueprint(delete_ps)
     app.register_blueprint(mains)
     app.register_blueprint(staff_d, url_prefix = '/staff_d')
+    app.register_blueprint(trs, url_prefix = '/trs')
 
     return app
 

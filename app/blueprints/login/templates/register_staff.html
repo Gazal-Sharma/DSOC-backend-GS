@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}REGSITER PAGE{% endblock %}
+
+{% block body %}
+<form method = "POST" action = "{{url_for('mains.register_staff')}}">
+    <h2> HEllo</h2>
+    <h1>REGISTER A NEW MEMBER</h1>
+    <label for="name">name:</label>
+    <input type="text" name="name" id="name" required><br><br>
+    
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required><br><br>
+    
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required><br><br>
+    
+    <label for="is_admin">Is Admin:</label>
+    <input type="checkbox" name="is_admin" id="is_admin"><br><br>
+    
+    <button type="submit">Register</button>
+</form>
+
+
+{% endblock %}
