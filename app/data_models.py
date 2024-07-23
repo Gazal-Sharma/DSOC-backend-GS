@@ -15,6 +15,8 @@ class Staff(db.Model):
     s_role = db.Column(db.String(50), nullable=False)
     s_contact = db.Column(db.String(15))
 
+    transactions = db.relationship('Transaction', backref='staff', lazy=True, cascade='all, delete-orphan')
+
     # def set_password(self, password):
     #     self.s_password = bcrypt.generate_password_hash(password).decode('utf-8')
     
@@ -78,6 +80,15 @@ class Customer(db.Model, UserMixin):
 
     def is_active(self):
         return self.c_status == 'active'
+    
+    def to_dict(self):
+        return {
+            'id': self.c_id,
+            'name': self.c_name,
+            'email': self.c_email,
+            'role': self.c_role,
+            'contact': self.c_contact
+        }
 
 class Transaction(db.Model):
     __tablename__ = 'transaction'
@@ -85,9 +96,9 @@ class Transaction(db.Model):
     c_id = db.Column(db.Integer, db.ForeignKey('customer.c_id'), nullable=False)
     s_id = db.Column(db.Integer, db.ForeignKey('staff.s_id'), nullable=False)
     product_amount_list = db.Column(db.JSON, nullable=False)
-    date = db.Column(db.Date, nullable=False)
-    time = db.Column(db.Time, nullable=False)
+    t_date = db.Column(db.Date, nullable=False)
+    t_time = db.Column(db.Time, nullable=False)
 
     # Relationships
     customer = db.relationship('Customer', backref=db.backref('transactions', lazy=True))
-    staff = db.relationship('Staff', backref=db.backref('transactions', lazy=True))
+    # staff = db.relationship('Staff', backref=db.backref('transactions', lazy=True))

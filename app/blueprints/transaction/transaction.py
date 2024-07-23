@@ -7,15 +7,16 @@ from utils import role_required
 trs = Blueprint('trs', __name__, template_folder="templates")
 
 @trs.route('/create', methods=['POST'])
-@login_required
+# @login_required
 def create_trs():
     data = request.get_json()
+    from app import db, db_connection
     if not data:
         return jsonify({'message': 'No input data provided'}), 400
     new_transaction = Transaction(
         c_id=data['c_id'],
         s_id=data['s_id'],
-        # product_amount_list=data['product_amount_list'],
+        product_amount_list=data['product_amount_list'],
         t_date=data['t_date'],
         t_time=data['t_time'],
         t_amount = data['t_amount'],
@@ -39,7 +40,7 @@ def create_trs():
     return jsonify({'message': 'Transaction created successfully', 'transaction': new_transaction}), 201
 
 @trs.route('/get_all', methods = ['GET'])
-@login_required
+# @login_required
 def get_trs_all():
     all = Transaction.query.all()
     all_list = [{
@@ -51,10 +52,10 @@ def get_trs_all():
         't_amount': all.t_amount,
         't_category': all.t_category
     } for one in all]
-    return jsonify(transactions_list), 200
+    return jsonify(all_list), 200
 
 @trs.route('/get_one/<int:id>', methods = ['GET'])
-@login_required
+# @login_required
 def get_trs_one(id):
     one = Transaction.query.get_or_404(id)
 

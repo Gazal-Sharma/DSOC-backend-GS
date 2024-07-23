@@ -60,20 +60,16 @@ def create_app():
     login_manager.init_app(app)
 
     from blueprints.products.get_prod.get_prod import get_ps
-    # from blueprints.products.post_prod.post_prod import post_pd
-    # from blueprints.products.put_prod.put_prod import put_pd
-    # from blueprints.products.delete_prod.delete_prod import delete_ps
     from blueprints.login.login import mains
     from blueprints.users.staff_crud.staff_d import staff_d
+    from blueprints.users.customer.customer import customer
     from blueprints.transaction.transaction import trs
 
     from data_models import Staff
     app.register_blueprint(get_ps)
-    # app.register_blueprint(post_pd)
-    # app.register_blueprint(put_pd)
-    # app.register_blueprint(delete_ps)
     app.register_blueprint(mains)
     app.register_blueprint(staff_d, url_prefix = '/staff_d')
+    app.register_blueprint(customer, url_prefix = '/ctr')
     app.register_blueprint(trs, url_prefix = '/trs')
 
     return app

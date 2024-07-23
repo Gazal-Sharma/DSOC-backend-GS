@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Transaction(
     t_ID SERIAL PRIMARY KEY,
     c_ID INT REFERENCES Customer(c_ID),
     s_ID INT REFERENCES Staff(s_ID),
-    -- product_amount_list JSONB,
+    product_amount_list JSONB NOT NULL,
     t_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     t_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     t_amount NUMERIC(10, 2) NOT NULL,

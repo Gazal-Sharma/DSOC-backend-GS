@@ -10,7 +10,7 @@ customer = Blueprint('customer', __name__, template_folder="templates")
 @customer.route('/create', methods = ['POST'])
 def create_customer():
     data = request.get_json()
-
+    from app import db, db_connection
     new_customer = Customer(
         c_name=data['c_name'],
         c_email=data['c_email'],
@@ -23,25 +23,26 @@ def create_customer():
     db.session.commit()
     return jsonify({'message': 'Customer created successfully'}), 201
 
-@customer.route('/get_one<int:id>', methods=['GET'])
-@login_required
-@role_required('staff', 'admin')
+@customer.route('/get_one/<int:id>', methods=['GET'])
+# @login_required
+# @role_required('staff', 'admin')
 def get_one(id):
     customer = Customer.query.get_or_404(id)
     return jsonify(customer.to_dict()), 200
 
 @customer.route('/get_all', methods = ['GET'])
-@login_required
-@role_required('staff', 'admin')
+# @login_required
+# @role_required('staff', 'admin')
 def get_all():
     customers = Customer.query.all()
     return jsonify([s.to_dict() for s in customers]), 200
 
 @customer.route('/put/<int:id>', methods=['PUT'])
-@login_required
-@role_required('customer')
+# @login_required
+# @role_required('customer')
 def update(id):
     data = request.get_json()
+    from app import db, db_connection
     customer = Customer.query.get_or_404(id)
     customer.c_name = data['c_name']
     customer.c_email = data['c_email']
@@ -53,12 +54,12 @@ def update(id):
 
 
 @customer.route('/delete/<int:id>', methods = ['DELETE'])
-@login_required
-@role_required('admin')
+# @login_required
+# @role_required('admin')
 def delete(id):
+    from app import db, db_connection
     customer = Customer.query.get_or_404(id)
-    customer.session.delete(customer)
+    db.session.delete(customer)
     db.session.commit()
     return jsonify({'message': 'Customer deleted successfully'})
 
-## is approved status (levels)

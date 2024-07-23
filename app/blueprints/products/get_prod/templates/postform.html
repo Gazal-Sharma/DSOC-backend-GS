@@ -1,7 +1,7 @@
 {% extends 'get.html' %}
 
 
-{% block content %}
+{% block body %}
     {% if not product %}
         <form action="{{ url_for('get_ps.create_product') }}" method="post">
             <h2>Please Enter the Details of the Product you want to create</h2>

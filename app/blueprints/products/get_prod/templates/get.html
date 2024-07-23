@@ -57,7 +57,7 @@
                 <a href="{{ url_for('get_ps.get_product', product_id=1) }}">ONE PRODUCT</a>
                 <a href="{{ url_for('get_ps.create_product') }}">CREATE PRODUCT</a>
                 <a href="{{ url_for('get_ps.update_product', product_id=1) }}">UPDATE PRODUCT</a>
-                <a href="{{ url_for('get_ps.delete_product', product_id=1) }}">DELETE PRODUCT</a>
+                <a href="{{ url_for('get_ps.delete_product_page') }}">DELETE PRODUCT</a>
             {% endif %}
         {% else %}
             <a href="{{ url_for('mains.login') }}">LOGIN</a>

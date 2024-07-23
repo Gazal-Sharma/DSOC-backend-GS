@@ -6,13 +6,13 @@ from utils import role_required
 
 staff_d = Blueprint('staff_d', __name__, template_folder="templates")  # prefix = staff_d
 
-@staff_d.route('/create_staff', methods=['POST'])
+@staff_d.route('/create_staff', methods=['POST']) ## change this to authentication after frontend
 # @login_required
-@role_required('admin')
+# @role_required('admin')
 def create_staff():
-    if not current_user.is_admin:
-        return jsonify({'message': 'Admin access required'}), 403
-    
+    # if not current_user.is_admin:
+    #     return jsonify({'message': 'Admin access required'}), 403
+    from app import db, db_connection
     data = request.get_json()
     new_staff = Staff(
         s_name=data['s_name'],
@@ -44,9 +44,10 @@ def get_one(id):
     return jsonify(staff.to_dict()), 200
 
 @staff_d.route('/put/<int:id>', methods=['PUT'])
-@login_required
-@role_required('admin')
+# @login_required
+# @role_required('admin')
 def put_staff(id):
+    from app import db, db_connection
     data = request.get_json()
     staff = Staff.query.get_or_404(id)
     staff.s_name = data['s_name']
@@ -57,9 +58,10 @@ def put_staff(id):
     return jsonify({'message': 'Staff updated successfully'}), 200
 
 @staff_d.route('/delete_staff/<int:id>', methods=['DELETE'])
-@login_required
-@role_required('admin')
+# @login_required
+# @role_required('admin')
 def delete_staff(id):
+    from app import db, db_connection
     staff = Staff.query.get_or_404(id)
     db.session.delete(staff)
     db.session.commit()
