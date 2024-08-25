@@ -4,6 +4,7 @@ from werkzeug.exceptions import NotFound
 from data_models import Staff  # Make sure this import is correct
 from utils import role_required
 
+
 staff_d = Blueprint('staff_d', __name__, template_folder="templates")  # prefix = staff_d
 
 @staff_d.route('/create_staff', methods=['POST']) ## change this to authentication after frontend
@@ -27,11 +28,11 @@ def create_staff():
     return jsonify({'message': 'Staff created successfully'}), 201
 
 @staff_d.route('/get_all', methods=['GET'])
-@login_required
-@role_required('admin', 'staff')
+# @login_required
+# @role_required('admin', 'staff')
 def get_all():
-    if not current_user.is_admin:
-        return jsonify({'message': 'Admin access required'}), 403
+    # if not current_user.is_admin:
+    #     return jsonify({'message': 'Admin access required'}), 403
     
     staff_list = Staff.query.all()
     return jsonify([s.to_dict() for s in staff_list]), 200

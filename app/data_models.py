@@ -3,6 +3,7 @@ from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import bcrypt
+from datetime import datetime
 
 class Staff(db.Model):
     __tablename__ = 'staff'
@@ -96,9 +97,22 @@ class Transaction(db.Model):
     c_id = db.Column(db.Integer, db.ForeignKey('customer.c_id'), nullable=False)
     s_id = db.Column(db.Integer, db.ForeignKey('staff.s_id'), nullable=False)
     product_amount_list = db.Column(db.JSON, nullable=False)
-    t_date = db.Column(db.Date, nullable=False)
-    t_time = db.Column(db.Time, nullable=False)
-
+    t_date = db.Column(db.DateTime, nullable=False,  default=datetime.utcnow)
+    t_time = db.Column(db.Time, nullable=False, default=datetime.utcnow().time)
+    t_amount = db.Column(db.Numeric(10, 2), nullable=False)
+    t_category = db.Column(db.String(50))
     # Relationships
     customer = db.relationship('Customer', backref=db.backref('transactions', lazy=True))
     # staff = db.relationship('Staff', backref=db.backref('transactions', lazy=True))
+
+    def to_dict(self):
+        return {
+            't_id': self.t_id,
+            'c_id': self.c_id,
+            's_id': self.s_id,
+            'product_amount_list': self.product_amount_list,
+            't_date': self.t_date.isoformat(),
+            't_time': self.t_time.isoformat(),
+            't_amount': self.t_amount,
+            't_category': self.t_category
+        }
